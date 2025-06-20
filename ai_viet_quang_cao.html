@@ -1,0 +1,60 @@
+<!-- AI Viết Quảng Cáo - Phiên bản đã chuẩn hóa, sẵn sàng ghi đè GitHub -->
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <title>AI Viết Quảng Cáo - VanHoang89</title>
+  <meta name="description" content="Truy cập trợ lý AI Viết Quảng Cáo, xác minh Gmail truy cập.">
+  <style>
+    body { font-family: Arial, sans-serif; text-align: center; padding: 40px; background: #fefefe; }
+    h1 { color: #0b3d91; }
+    input, button { padding: 10px; margin: 10px; font-size: 1em; border-radius: 5px; border: 1px solid #ccc; }
+    button { background: #0b3d91; color: white; border: none; cursor: pointer; }
+    button:hover { background: #062d6d; }
+    .error { color: red; margin-top: 15px; }
+    .success { margin-top: 30px; font-size: 1.2em; display: none; }
+    .success a { color: #00a86b; text-decoration: none; }
+  </style>
+</head>
+<body>
+  <h1>AI Viết Quảng Cáo - VanHoang89</h1>
+  <p>Nhập Gmail đã đăng ký để truy cập trợ lý AI</p>
+  <input type="email" id="email" placeholder="your@email.com">
+  <button onclick="checkAccess()">Xác nhận</button>
+  <div class="error" id="error"></div>
+  <div class="success" id="success">
+    ✅ Email hợp lệ!<br>
+    <a href="https://chatgpt.com/g/g-5rakkjXJb-ai-viet-quang-cao" target="_blank">Mở AI Viết Quảng Cáo</a>
+  </div>
+
+  <script>
+    const sheetId = "16yCkqU39gcdThTf-tGBeyOHXIYXhMbUTO28G23t46cM";
+    const apiKey = "AIzaSyDHdPZRE0ZPC0RavwhQHMu7CGxUydTxlhg";
+    const range = "GPT_Access!A2:A";
+
+    async function checkAccess() {
+      const email = document.getElementById("email").value.trim().toLowerCase();
+      const errorBox = document.getElementById("error");
+      const successBox = document.getElementById("success");
+      errorBox.innerText = "Đang kiểm tra...";
+
+      try {
+        const res = await fetch(`https://sheets.googleapis.com/v4/spreadsheets/${sheetId}/values/${range}?key=${apiKey}`);
+        const data = await res.json();
+        const list = data.values.flat().map(e => e.toLowerCase());
+
+        if (list.includes(email)) {
+          errorBox.innerText = "";
+          successBox.style.display = "block";
+        } else {
+          successBox.style.display = "none";
+          errorBox.innerText = "Email chưa được duyệt. Vui lòng dùng đúng email đã đăng ký với VanHoang89.";
+        }
+      } catch (err) {
+        errorBox.innerText = "Lỗi kết nối Google Sheet. Vui lòng thử lại.";
+        successBox.style.display = "none";
+      }
+    }
+  </script>
+</body>
+</html>
